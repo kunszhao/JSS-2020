@@ -22,15 +22,6 @@ def loadCsv(path):
     return data, n, d
 
 
-def loadPima():
-    data, n, d = loadCsv(f + 'pima/pima-indians-diabetes.data')
-    rawX = data[:, np.arange(d-1)].astype(float)
-    rawY = data[:, d-1]
-    rawY[rawY != '1'] = '-1'
-    rawY = rawY.astype(int)
-    return rawX, rawY
-
-
 def loadCodec():
     df = read_xlsx(f + 'codec/codec.xlsx')
     return df
@@ -83,7 +74,6 @@ def loadOrmlite():
 d = OrderedDict()
 s = time.time()
 
-# d["pima"] = loadPima()                     #    768  34.90%
 d["codec"] = loadCodec()
 d["collections"] = loadCollections()
 d["io"] = loadIo()

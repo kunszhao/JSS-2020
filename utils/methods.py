@@ -118,73 +118,6 @@ def rusBoost(X, y, xtest):
     return y_pred
 
 
-
-"""classification and regression methods"""
-
-
-def naive_bayes(X, y, xtest):
-    gnb = GaussianNB()
-    gnb.fit(X, y)
-    y_pred = gnb.predict(xtest)
-    return y_pred
-
-
-def decision_tree(X, y, xtest):
-    clf = DecisionTreeClassifier()
-    clf.fit(X, y)
-    y_pred = clf.predict(xtest)
-    return y_pred
-
-
-def svm_svc(X, y, xtest):
-    clf = svm.SVC()
-    clf.fit(X, y)
-    y_pred = clf.predict(xtest)
-    return y_pred
-
-
-def lr(X, y, xtest):
-    l_r = LogisticRegression(random_state=0)
-    l_r.fit(X, y)
-    y_pred = l_r.predict(xtest)
-    return y_pred
-
-
-def nn(X, y, xtest):
-    neigh = KNeighborsClassifier(n_neighbors=1, algorithm='ball_tree')
-    neigh.fit(X, y)
-    y_pred = neigh.predict(xtest)
-    return y_pred
-
-
-def random_forest(X, y, xtest):
-    clf = RandomForestClassifier(max_depth=2, random_state=0)
-    clf.fit(X, y)
-    y_pred = clf.predict(xtest)
-    return y_pred
-
-
-def nn_5(X, y, xtest):
-    neigh = KNeighborsClassifier(n_neighbors=5, algorithm='ball_tree')
-    neigh.fit(X, y)
-    y_pred = neigh.predict(xtest)
-    return y_pred
-
-
-def nn_7(X, y, xtest):
-    neigh = KNeighborsClassifier(n_neighbors=7, algorithm='ball_tree')
-    neigh.fit(X, y)
-    y_pred = neigh.predict(xtest)
-    return y_pred
-
-
-def nn_9(X, y, xtest):
-    neigh = KNeighborsClassifier(n_neighbors=9, algorithm='ball_tree')
-    neigh.fit(X, y)
-    y_pred = neigh.predict(xtest)
-    return y_pred
-
-
 """common methods"""
 
 
@@ -198,15 +131,7 @@ def origin_knn(X, y, xtest):
 
 
 def knn(k, Xtrain, Ytrain, Xtest):
-    """
-    Classic kNN function. Take as input train features and labels. And
-    test features. Then compute pairwise distances between test and train.
-    And for each test example, return the majority class among its kNN.
-    """
-    # 计算训练集和测试集所有实例之间的相互距离
     d = euclidean_distances(Xtest, Xtrain, squared=True)
-    # 找出距离最近的K个邻居的标签值
     nnc = Ytrain[np.argsort(d)[..., :k].flatten()].reshape(Xtest.shape[0], k)  #
-    #     # 找出最近的K个邻居中出现次数最多的标签值，作为预测结果
     pred = [max(nnc[i], key=Counter(nnc[i]).get) for i in range(nnc.shape[0])]
     return np.array(pred)
